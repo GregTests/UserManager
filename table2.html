@@ -1,0 +1,141 @@
+<h2 class="text-center">Mail</h2>
+<div class="col-md-6">
+  <div style="margin:5px 0px;">
+  <div class="input-group">
+    <div class="input-group-addon">
+      Search
+    </div>
+    <input type="text" ng-model="fil" class="form-control"/>
+    <div style="padding:0px;width:20%" class="input-group-addon">
+      <select ng-model="type" style="width:100%;height:100%;">
+        <option value="Topic">Topic</option>
+        <option value="Reciver">Reciver</option>
+      </select>
+    </div>
+    <div class="input-group-btn">
+      <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+    </div>
+  </div>
+  </div>
+  <div class="input-group">
+    <div class="input-group-addon">
+      Sort By
+    </div>
+    <div class="input-group-addon text-center">
+      <input type="radio" name="s" ng-model="sel" value="Topic" checked/> 
+      <span style="display:block">Topic</span>
+    </div>
+    <div class="input-group-addon text-center">
+      <input type="radio" name="s" ng-model="sel" value="Rec"/>
+      <span style="display:block">Reciver</span>
+    </div>
+  </div>
+<table class="table table-hover text-center">
+  <thead style="cursor:default">
+  <tr>
+    <td><b>Topic</b></td>
+    <td><b>Reciver</b></td>
+  </tr>
+  </thead>
+  <tbody style="cursor:pointer">
+  <tr ng-repeat="item in items | orderBy:sel | start:fil:type" ng-click="al(item.Id)" data-idn="{{item.Id}}">
+    <td>{{item.Topic}}</td>
+    <td>{{item.Reciver}}</td>
+  </tr>
+  </tbody>
+</table>
+<ul class="options">
+  <span ng-if="!s">
+  <li style="min-width:50%" ng-click="set(1)">Create</li>
+  </span>
+  <span ng-if="s">
+  <li ng-click="set(2)">View</li>
+  <li ng-click="set(4)">Edit</li>
+  <li ng-click="set(3)">Delete</li>
+  </span>
+</ul>
+</div>
+<div ng-switch="mode" class="col-md-6">
+  <div class="menu">
+  <div ng-if="mode==1 || mode==4">
+    <form name="form" class="form-horizontal text-center" novalidate>
+      <div ng-if="mode==1" class="form-group">
+        <div class="container-fluid">
+          <h3>Create</h3>
+        </div>
+      </div>
+      <div ng-if="mode==4" class="form-group">
+        <div class="container-fluid">
+          <h3>Edit</h3>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-md-2 col-sm-3">Name</label>
+        <div class="col-md-10 col-sm-9">
+          <input maxlength="20" required name="name" ng-model="cr.Name" type="text" class="form-control"/>
+        <span class="text-danger" ng-show="form.name.$invalid && form.name.$dirty">
+          <span ng-show="form.name.$error.required">Enter name</span>
+          <span ng-show="form.name.$error.maxlength">Name should not have more than 20 characters</span>
+        </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-md-2 col-sm-3">Mail</label>
+        <div class="col-md-10 col-sm-9">
+          <input required ng-model="cr.Mail" type="email" name="mail" class="form-control"/>
+          <span class="text-danger" ng-show="form.mail.$invalid && form.mail.$dirty">
+          <span ng-show="form.mail.$error.required">Enter mail</span>
+          <span ng-show="form.mail.$error.email">Enter valid email</span>
+        </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-md-2 col-sm-3">Role</label>
+        <div class="col-md-10 col-sm-9">
+          <select required ng-model="cr.Role" class="form-control">
+            <option value="User">User</option>
+            <option value="VIP">VIP</option>
+          </select>
+        </div>
+      </div>
+      <div ng-if="mode==1 && cr.check()" class="form-group">
+        <div class="container-fluid">
+          <button ng-click="create()" class="btn btn-block">Create</button>
+        </div>
+      </div>
+      <div ng-if="mode==4 && cr.check()" class="form-group">
+        <div class="container-fluid">
+          <button ng-click="edit()" class="btn btn-block">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div ng-if="mode==2">
+    <div class="container-fluid" style="font-size:20px;font-family:Arial">
+      <h2 class="text-center">Information</h2>
+      <div class="form-group">
+      <label class="control-label text-center col-md-6 col-sm-6 col-xs-6">Name</label>
+      <label class="control-label text-center col-md-6 col-sm-6 col-xs-6">{{cr.Name}}</label>
+      </div>
+      <div class="form-group">
+      <label class="control-label text-center col-md-6 col-sm-6 col-xs-6">Mail</label>
+      <label class="control-label text-center col-md-6 col-sm-6 col-xs-6">{{cr.Mail}}</label>
+      </div>
+      <div class="form-group">
+      <label class="control-label text-center col-md-6 col-sm-6 col-xs-6">Role</label>
+      <label class="control-label text-center col-md-6 col-sm-6 col-xs-6">{{cr.Role}}</label>
+      </div>
+    </div>
+  </div>
+  <div ng-if="mode==3">
+    <div class="container-fluid">
+      <div style="margin-top:80px;" class="well text-center">
+        <h4>Are you sure you want to delete this account?</h4>
+        <h5>{{del.Name}}-{{del.Role}}</h5>
+        <p>You will not be able to revive this account data.</p>
+        <button ng-click="delete()" class="btn btn-default btn-block">Delete</button>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>

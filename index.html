@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Example - example-ng-repeat-production</title>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="//code.angularjs.org/snapshot/angular.min.js"></script>
+  <script src="//code.angularjs.org/snapshot/angular-animate.js"></script>
+  <script src="//code.angularjs.org/snapshot/angular-route.js"></script>
+  <script src="main.js"></script>
+  <script src="users.js"></script>
+  <script src="mail.js"></script>
+  <link href="animations.css" rel="stylesheet" type="text/css">
+  
+</head>
+<body>
+  
+  <div id="block" ng-app="main" class="container-fluid" style="min-width:400px" ng-controller="init">
+    <h2 class="text-center">{{Type}}</h2>
+    <h5 class="text-center">
+      <a ng-show="Type!='Users'" href="#/users">Users</a>
+      <a ng-show="Type!='Mail'" href="#/mail">Mail</a>
+    </h5>
+  <ng-view></ng-view>
+  </div>
+  <script>
+  /*
+  <div id="load" style="max-width:400px;margin-left:auto;margin-right:auto;">
+    <div class="progress">
+  <div class="progress-bar progress-bar-striped active" role="progressbar">
+    40%
+  </div>
+</div>
+  </div>
+  
+  function load(a){
+    var e=$("#load .progress .progress-bar");
+    e.css('width',a+'%');
+    e.text(a+'%');
+    if(a==100){
+      $("#load").fadeOut(500,function(){
+      $(this).remove();
+      $("#block").fadeIn();
+    });
+    }
+    else setTimeout(function(){load(a+5);},100);
+  };
+  
+    $(document).ready(function(){
+      load(5);
+    });*/
+  </script>
+</body>
+</html>
+
+<!-- 
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->
